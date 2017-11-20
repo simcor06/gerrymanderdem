@@ -10,12 +10,16 @@ vignette: >
 ---
 
 ## 4.1 Summary
+The object of this project is to use 2010 census tract level demographic data in conjunction with federal, state upper house, and state lower house precincts/wards boundaries to better understand the demographic makeup of each of these political boundaries. This will be used to assist in better understanding the relationship between gerrymandering in the US and demographic data.  we will initially perform this analysis on the US state of Wisconsin to test out the process, and then perform it on another state (most likely North Carolina).  The demographic data we are interested in examining are total population and ethnic composition, but may also examine age, income, and other interesting demographic trends. After we have conducted the analysis on these two states, and created summary statistics and maps that allow users to better understand (NEED TO FINISH)
 
 ## 4.2 Approach and Method
 
 ### 4.2.1 Data
 
 ### 4.2.2 Code
+-Load census tract Shapefiles and join with census tract demographic data (Andrea Huerfano)
+-Load congressional, state upper, and state lower district boundaries (Cory Hertog)
+-
 
 ### 4.2.3  Timelines
 
