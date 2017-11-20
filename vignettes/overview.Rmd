@@ -16,8 +16,7 @@ The object of this project is to use 2010 census tract level demographic data in
 
 
 ### 4.2.1 Data
--Census Tract level demographic data and shapefiles
--
+Our data will mainly consist of US census tract spatial polygon data in the form of an ESRI shapefile with associate demographic data collected from the [census website](https://www.census.gov/geo/maps-data/data/tiger-data.html).  We will then use congressional district, state upper house district, and state lower house district boundary spatial data. The 115th  congressional districts (current congress) can be retrieved in the form of an ESRI Shapefile from the [US census website](https://www.census.gov/geo/reference/ansi_statetables.html). This state legislative bodies boundaries, both upper and lower house, will need to be retrieved from each states individual GIS or political boundary website and may come in numerous forms.  For Wisconsin, the first state we will focus on, the boundaries for both the upper and lower house voting districts can be retrieved in the form of ESRI shapefiles from the [Wisconsin GIS open source data website](http://data-ltsb.opendata.arcgis.com/).  All other states will most likely have state legislative district boundaries in the form of an ESRI shapefile, but there may be some variation.
 
 ### 4.2.2 Code
 -Load census tract Shapefiles and join with census tract demographic data (Andrea Huerfano)
