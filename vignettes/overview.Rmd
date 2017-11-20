@@ -1,0 +1,23 @@
+---
+title: "Overview"
+author: "Cory Hertog & Andrea Huerfano"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## 4.1 Summary
+
+## 4.2 Approach and Method
+
+### 4.2.1 Data
+
+### 4.2.2 Code
+
+### 4.2.3  Timelines
+
+## 4.3 Anticipated Outcomes
+
