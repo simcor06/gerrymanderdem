@@ -14,7 +14,10 @@ The object of this project is to use 2010 census tract level demographic data in
 
 ## 4.2 Approach and Method
 
+
 ### 4.2.1 Data
+-Census Tract Level Demographic Data and Shapefiles
+-
 
 ### 4.2.2 Code
 -Load census tract Shapefiles and join with census tract demographic data (Andrea Huerfano)
@@ -22,6 +25,13 @@ The object of this project is to use 2010 census tract level demographic data in
 -
 
 ### 4.2.3  Timelines
+- 11/27/2017 - Have Wisconsin polygons intersected
+- 11/29/2017 - create area ratios and demographic number for polictical districts
+- 12/4/2017 - Finish demographic data displays of wisconsin polictial districts, begin work on second state
+- 12/8/2017 - Finish data dispalys
+- 12/11/2017 - Class presentation
+-Create general outlien of how to proceed nationally for  this
+
 
 ## 4.3 Anticipated Outcomes
 
