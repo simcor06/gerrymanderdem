@@ -15,18 +15,18 @@ The objective of this project is to use 2010 census tract level demographic data
 ## 4.2 Approach and Method
 
 
-### 4.2.1 Data
+### 4.2.1 Data (Cory Hertog)
 Our data will mainly consist of US census tract spatial polygon data in the form of an ESRI shapefile with associate demographic data collected from the [census website](https://www.census.gov/geo/maps-data/data/tiger-data.html).  We will then use congressional district, state upper house district, and state lower house district boundary spatial data. The 115th  congressional districts (current congress) can be retrieved in the form of an ESRI Shapefile from the [US census website](https://www.census.gov/geo/reference/ansi_statetables.html). This state legislative bodies boundaries, both upper and lower house, will need to be retrieved from each states individual GIS or political boundary website and may come in numerous forms.  For Wisconsin, the first state we will focus on, the boundaries for both the upper and lower house voting districts can be retrieved in the form of ESRI shapefiles from the [Wisconsin GIS open source data website](http://data-ltsb.opendata.arcgis.com/).  All other states will most likely have state legislative district boundaries in the form of an ESRI shapefile, but there may be some variation. We will be using packages such as `sp`, `rgdal`, `rgeos`, and possibly `raster` to prepare and analyze the information and prepare mot of it. We may use statistical display packages like `ggmap` or `ggplot2` to display the findings in meaningful ways
 
 ![](fig/WIdists_Base.png)
 
 ### 4.2.2 Code
--Load census tract Shapefiles and join with census tract demographic data (Andrea Huerfano)
--Load congressional, state upper, and state lower district boundaries (Cory Hertog)
--Find census tracts that intersect legislative boundaries (Andrea Huerfano)
--Calculate area of individual census tracts that are contained within individual legislative districts. USe these to create area ratios for individual census tracts that are partially intersected by legislative districts to calculate proportion of demographic data to be dispersed amongst individual legislative boundaries (Cory Hertog)
--Create maps of legislative boundaries and associated demographic data of interest in wisconsin (Andrea Huerfano)
--Create maps of legislative boundaries and associated demographic data of interest in a second state (Cory Hertog)
+- Load census tract Shapefiles and join with census tract demographic data (Andrea Huerfano)
+- Load congressional, state upper, and state lower district boundaries (Cory Hertog)
+- Find census tracts that intersect legislative boundaries (Andrea Huerfano)
+- Calculate area of individual census tracts that are contained within individual legislative districts. USe these to create area ratios for individual census tracts that are partially intersected by legislative districts to calculate proportion of demographic data to be dispersed amongst individual legislative boundaries (Cory Hertog)
+- Create maps of legislative boundaries and associated demographic data of interest in wisconsin (Andrea Huerfano)
+- Create maps of legislative boundaries and associated demographic data of interest in a second state (Cory Hertog)
 
 ### 4.2.3  Timelines
 - 11/27/2017 - Have Wisconsin legislative and census tract polygons intersected
@@ -39,4 +39,7 @@ Our data will mainly consist of US census tract spatial polygon data in the form
 
 
 ## 4.3 Anticipated Outcomes
+- Create a  systematic process in R for combing census demographic data and current legislative districts for Wisconsin and a second state
+- Create maps and data displays of interesting data trends found within this information
+- Create a fairly systematic description of how to use this package to analyze similar demographic data in other US states
 
