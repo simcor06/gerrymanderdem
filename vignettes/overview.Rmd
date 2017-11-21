@@ -37,7 +37,7 @@ Our data will mainly consist of US census tract spatial polygon data in the form
 - 12/15/2017 - Submit final package and report
 
 
-## 4.3 Anticipated Outcomes
+## 4.3 Anticipated Outcomes (Andrea Huerfano)
 - Create a  systematic process in R for combing census demographic data and current legislative districts for Wisconsin and a second state
 - Create maps and data displays of interesting data trends found within this information
 - Create a fairly systematic description of how to use this package to analyze similar demographic data in other US states
