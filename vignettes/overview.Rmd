@@ -23,7 +23,7 @@ Our data will mainly consist of US census tract spatial polygon data in the form
 - Load census tract Shapefiles and join with census tract demographic data (Andrea Huerfano)
 - Load congressional, state upper, and state lower district boundaries (Cory Hertog)
 - Find census tracts that intersect legislative boundaries (Andrea Huerfano)
-- Calculate area of individual census tracts that are contained within individual legislative districts. USe these to create area ratios for individual census tracts that are partially intersected by legislative districts to calculate proportion of demographic data to be dispersed amongst individual legislative boundaries (Cory Hertog)
+- Calculate area of individual census tracts that are contained within individual legislative districts. Use these to create area ratios for individual census tracts that are partially intersected by legislative districts to calculate proportion of demographic data to be dispersed amongst individual legislative boundaries (Cory Hertog)
 - Create maps of legislative boundaries and associated demographic data of interest in wisconsin (Andrea Huerfano)
 - Create maps of legislative boundaries and associated demographic data of interest in a second state (Cory Hertog)
 
