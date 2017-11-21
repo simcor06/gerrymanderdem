@@ -4,14 +4,14 @@ library(rgdal)
 
 ## For state legislative Boundries, look here: http://data-ltsb.opendata.arcgis.com/datasets/6c05ba69356c4b52a9542bb4493f732b_0
 # State Upper House
-WI_sud<- readOGR(dsn = "data/Wisconsin/State_Upper/Senate_Districts_2011.shp")
+WI_sud<- readOGR(dsn = "C:/Users/coryh/OneDrive for Business/Geospatial Analysis with R/Final Project/data/Wisconsin/State_Upper/Senate_Districts_2011.shp")
 
 #State Lower House
-WI_sld<- readOGR(dsn = "data/Wisconsin/State_Lower/_Wisconsin_State_Assembly_Districts.shp")
+WI_sld<- readOGR(dsn = "C:/Users/coryh/OneDrive for Business/Geospatial Analysis with R/Final Project/data/Wisconsin/State_Lower/_Wisconsin_State_Assembly_Districts.shp")
 
 ## Congressional Distrcits
 ## State FIPS Codes: https://www.census.gov/geo/reference/ansi_statetables.html
-fcd115_NAD83 <- readOGR(dsn = "data/Congressional_Dist/tl_2016_us_cd115.shp")
+fcd115_NAD83 <- readOGR(dsn = "C:/Users/coryh/OneDrive for Business/Geospatial Analysis with R/Final Project/data/Congressional_Dist/tl_2016_us_cd115.shp")
 # transform to WGS84 Datum
 fcd115 <- spTransform(x = fcd115_NAD83, CRSobj = proj4string(WI_sud))
 #extract wisconsin (FIPS == 55)
