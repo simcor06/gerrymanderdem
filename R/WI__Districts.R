@@ -13,13 +13,14 @@ WI_sld<- readOGR(dsn = "C:/Users/coryh/OneDrive for Business/Geospatial Analysis
 ## State FIPS Codes: https://www.census.gov/geo/reference/ansi_statetables.html
 fcd115_NAD83 <- readOGR(dsn = "C:/Users/coryh/OneDrive for Business/Geospatial Analysis with R/Final Project/data/Congressional_Dist/tl_2016_us_cd115.shp")
 # transform to WGS84 Datum
-fcd115 <- spTransform(x = fcd115_NAD83, CRSobj = proj4string(WI_sud))
+WGS84proj <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
+fcd115 <- spTransform(x = fcd115_NAD83, CRSobj = WGS84proj)
 #extract wisconsin (FIPS == 55)
 WI_fcd115 <- fcd115[fcd115$STATEFP == 55, ]
 
 
 
-par(mfrow = c(1, 3))
-plot(WI_fcd115)
-plot(WI_sud)
-plot(WI_sld)
+#par(mfrow = c(1, 3))
+#plot(WI_fcd115)
+#plot(WI_sud)
+#plot(WI_sld)
