@@ -1,0 +1,38 @@
+---
+title: "Gerrymanderdem Package Information"
+author: "Cory Hertog"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Gerrymanderdem Package Information}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+### Important Census Identification Codes
+DP0010001 Total Population of the Census Tract
+DP0080001 Total:
+DP0080002 Population of one race:
+DP0080003 White
+DP0080004 Black or African American
+DP0080005 American Indian and Alaska Native
+DP0080006 Asian:
+DP0080007 Asian Indian
+DP0080008 Chinese
+DP0080009 Filipino
+DP0080010 Japanese
+DP0080011 Korean
+DP0080012 Vietnamese
+DP0080013 Other Asian
+DP0080014 Native Hawaiian and Other Pacific Islander:
+DP0080015 Native Hawaiian
+DP0080016 Guamanian or Chamorro
+DP0080017 Samoan
+DP0080018 Other Pacific Islander
+DP0080019 Some Other Race
+DP0080020 Population of Two or More Races
+DP0080021 White; American Indian and Alaska Native
+DP0080022 White; Asian
+DP0080023 White; Black or African American
+DP0080024 White; Some Other Race
+
