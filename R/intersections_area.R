@@ -1,10 +1,13 @@
 library(rgeos)
 library(sp)
 library(raster)
+library(maps)
 
 
 ## this subsets data in which the GEOid begins with 55, which is the FIPS code for Wisconsin
-WI_ctracts <- ctracts2010[grep("^55", ctracts2010@data$GEOID10), ]
+WI_ctracts_WGS84 <- ctracts2010[grep("^55", ctracts2010@data$GEOID10), ]
+WI_ctracts <- spTransform(WI_ctracts_WGS84, CRSobj = lcc)
+
 ##summary(WI_ctracts)
 ##plot(WI_ctracts)
 
@@ -34,6 +37,7 @@ WI_sld_ctracts<- lapply(1:length(WI_sld@data$District_N), function(x) {
   WI_ctracts[int_sld, ]
  })
 
+
 ## Creating a list of spatialpolygondataframes of census tracts for each state upper districts
 WI_sud_ctracts<- lapply(1:length(WI_sud@data$SEN_NUM), function(x) {
   int_sud <- which(gIntersects(spgeom1 = WI_sud[WI_sud@data$SEN_NUM == x,],
@@ -41,5 +45,16 @@ WI_sud_ctracts<- lapply(1:length(WI_sud@data$SEN_NUM), function(x) {
   WI_ctracts[int_sud, ]
 })
 
+
+WI_sud_ctracts[[1]]@data$area<- gArea(spgeom = WI_sud_ctracts[[1]], byid = TRUE)
+
+WI_sud_ctracts[[1]]@data$area
+plot(WI_sud[WI_sud@data$SEN_NUM == 1,])
+WI_testintersect <- gIntersection(spgeom1 = WI_sud[WI_sud@data$SEN_NUM == 1,], spgeom2 = WI_sud_ctracts[[1]], byid = TRUE)
+WI_testintersect$area <- gArea(spgeom = WI_testintersect, byid = TRUE)
+WI_sud_ctracts[[1]]@data$percentarea <- WI_testintersect$area/ WI_sud_ctracts[[1]]@data$area
+WI_sud_ctracts[[1]]@data$poppercent <- WI_sud_ctracts[[1]]@data$DP0010001*WI_sud_ctracts[[1]]@data$percentarea
+sum(WI_sud_ctracts[[1]]@data$poppercent)
 ## Creating a list of spatialpolygondataframes of census tracts for each congressional district
 ## need to work on this still
+WI_sud_ctracts[[1]]@data$percentarea
