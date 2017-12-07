@@ -46,15 +46,22 @@ WI_sud_ctracts<- lapply(1:length(WI_sud@data$SEN_NUM), function(x) {
 })
 
 
-WI_sud_ctracts[[1]]@data$area<- gArea(spgeom = WI_sud_ctracts[[1]], byid = TRUE)
+#created spatial polygon data frames that contain a the percentage of pipulation in each census tracts district
+#according to area of tract within that district
 
-WI_sud_ctracts[[1]]@data$area
-plot(WI_sud[WI_sud@data$SEN_NUM == 1,])
-WI_testintersect <- gIntersection(spgeom1 = WI_sud[WI_sud@data$SEN_NUM == 1,], spgeom2 = WI_sud_ctracts[[1]], byid = TRUE)
-WI_testintersect$area <- gArea(spgeom = WI_testintersect, byid = TRUE)
-WI_sud_ctracts[[1]]@data$percentarea <- WI_testintersect$area/ WI_sud_ctracts[[1]]@data$area
-WI_sud_ctracts[[1]]@data$poppercent <- WI_sud_ctracts[[1]]@data$DP0010001*WI_sud_ctracts[[1]]@data$percentarea
-sum(WI_sud_ctracts[[1]]@data$poppercent)
+
+WI_sud_dctracts <- lapply(1:length(WI_sud@data$SEN_NUM), function(x) {
+  sud_c_int <- gIntersection(spgeom1 = WI_sud[WI_sud@data$SEN_NUM == x,],
+                             spgeom2 = WI_sud_ctracts[[x]], byid = TRUE)
+  dc_area <- gArea(spgeom = sud_c_int, byid = TRUE)
+  percentage <- dc_area/WI_sud_ctracts[[x]]@data$area
+  DP0010001 <- WI_sud_ctracts[[x]]@data$DP0010001*percentage
+  SpatialPolygonsDataFrame(sud_c_int, data.frame(dc_area, percentage, DP0010001))
+})
+
+WI_sud_dctracts
+sum(WI_sud_dctracts[[1]]@data$DP0010001)
+WI_sud_dctracts[[1]]@data$percentage
 ## Creating a list of spatialpolygondataframes of census tracts for each congressional district
 ## need to work on this still
 WI_sud_ctracts[[1]]@data$percentarea
