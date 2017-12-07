@@ -58,7 +58,8 @@ WI_sud_dctracts <- lapply(1:length(WI_sud@data$SEN_NUM), function(x) {
   DP0010001 <- WI_sud_ctracts[[x]]@data$DP0010001*percentage
   SpatialPolygonsDataFrame(sud_c_int, data.frame(dc_area, percentage, DP0010001))
 })
-
+##I think I add somethign like this in order to make t one single spatial polygondateframe
+## WI_sud@data$DP0010001
 WI_sud_dctracts
 sum(WI_sud_dctracts[[1]]@data$DP0010001)
 WI_sud_dctracts[[1]]@data$percentage

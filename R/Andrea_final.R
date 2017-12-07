@@ -7,7 +7,6 @@ library(tidycensus)
 library(tidyverse)
 library(rgdal)
 library(rgeos)
-install.packages("maps")
 library(maps)
 
 #FOLLOWING ARE SPATIAL-RELATED OPERATIONS:
@@ -15,7 +14,7 @@ library(maps)
 wi<- states(WI)
 plot(wi)
 #WI Census Tracts
-WI_tracts<-tracts(state = 'WI', cb= TRUE)
+WI_tracts<-tracts(state = 55, cb= TRUE)
 plot(WI_tracts)
 View(WI_tracts)
 
@@ -23,7 +22,7 @@ View(WI_tracts)
 WI_lower<-state_legislative_districts("WI", house = "lower", cb = TRUE,
                             year = NULL)
 plot(WI_lower)
-
+View(WI_lower)
 #WI Upper
 WI_upper<-state_legislative_districts("WI", house = "upper", cb = TRUE,
                                       year = NULL)
@@ -31,9 +30,10 @@ plot(WI_upper)
 
 View(WI_upper)
 #congressional district not working!
-fed_congress<-congressional_districts("WI", year = NULL)
-plot(fed_congress)
-
+fed_congress<-congressional_districts(cb = TRUE, year = NULL)
+fed_congress_state <- fed_congress[fed_congress@data$STATEFP == 55,]
+plot(fed_congress_state)
+View(fed_congress)
 
 #TRANSFORM
 WI_tracts_transformed<-spTransform(WI_tracts,CRS("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"))
