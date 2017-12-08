@@ -1,68 +1,75 @@
 library(rgeos)
 library(sp)
 library(raster)
-library(maps)
 
 
-## this subsets data in which the GEOid begins with 55, which is the FIPS code for Wisconsin
-WI_ctracts_WGS84 <- ctracts2010[grep("^55", ctracts2010@data$GEOID10), ]
-WI_ctracts <- spTransform(WI_ctracts_WGS84, CRSobj = lcc)
+# Function for Creating State Lower SpatialPolygonDataFrames with Population
+#based on area of each census tract the district boundary covers
+sld_pop <- merge(x = state_lower, y = t(sapply(1:length(state_lower@data$SLDLST), function(z) {
+  sd_c_int <- intersect(x =  state_lower[state_lower@data$SLDLST == z,],
+                         y = state_tracts_pop)
+  dc_area <- gArea(spgeom = sd_c_int, byid = TRUE)/1000000
+  percentage <- dc_area/sd_c_int@data$AREA
+  Pop_Total <- round(sum(sd_c_int@data$Pop_Total*percentage))
+  Pop_White <- round(sum(sd_c_int@data$Pop_White*percentage))
+  Pop_Black <- round(sum(sd_c_int@data$Pop_Black*percentage))
+  Pop_American_Indian <- round(sum(sd_c_int@data$Pop_American_Indian*percentage))
+  Pop_Asian <- round(sum(sd_c_int@data$Pop_Asian*percentage))
+  Pop_Hawaian_Pacific_Islander <- round(sum(sd_c_int@data$Pop_Hawaian_Pacific_Islander*percentage))
+  Pop_Hispanic <- round(sum(sd_c_int@data$Pop_Hispanic*percentage))
+  unlist(data.frame(state_lower[state_lower@data$SLDLST == z,], Pop_Total, Pop_White, Pop_Black,
+             Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
+             Pop_Hispanic))
 
-##summary(WI_ctracts)
-##plot(WI_ctracts)
+})), by = "SLDLST")
 
+View(sld_pop)
 
-## Plotting and subsetting Individudal Federal Districts Example
-####plot(WI_fcd115[WI_fcd115@data$GEOID == 5501, ])
+# Function for Creating State Upper SpatialPolygonDataFrames with Population
+#based on area of each census tract the district boundary covers
+sud_pop <- merge(x = state_upper, y = t(sapply(1:length(state_upper@data$SLDUST), function(z) {
+  sd_c_int <- intersect(x =  state_upper[state_upper@data$SLDUST == z,],
+                             y = state_tracts_pop)
+  dc_area <- gArea(spgeom = sd_c_int, byid = TRUE)/1000000
+  percentage <- dc_area/sd_c_int@data$AREA
+  Pop_Total <- round(sum(sd_c_int@data$Pop_Total*percentage))
+  Pop_White <- round(sum(sd_c_int@data$Pop_White*percentage))
+  Pop_Black <- round(sum(sd_c_int@data$Pop_Black*percentage))
+  Pop_American_Indian <- round(sum(sd_c_int@data$Pop_American_Indian*percentage))
+  Pop_Asian <- round(sum(sd_c_int@data$Pop_Asian*percentage))
+  Pop_Hawaian_Pacific_Islander <- round(sum(sd_c_int@data$Pop_Hawaian_Pacific_Islander*percentage))
+  Pop_Hispanic <- round(sum(sd_c_int@data$Pop_Hispanic*percentage))
+  unlist(data.frame(state_upper[state_upper@data$SLDUST == z,], Pop_Total, Pop_White, Pop_Black,
+                                      Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
+                                      Pop_Hispanic))
 
-## Plotting and subsetting Individudal State Upper Districts Example
-####plot(WI_sud[WI_sud@data$SEN_NUM == 1,])
-
-## Plotting and subsetting Individudal State Lower Districts Example
-###plot(WI_sld[WI_sld@data$District_N == 1,])
-
-## intersect using raster package, unfortunately this cuts tracts in half, wchih wil be good for area caluclations
-###Test_int <- intersect(x = WI_sld[WI_sld@data$District_N == 1,], y = WI_ctracts)
-###plot(Test_int)
-
-##Gintersects, this gives you the actual aligned tract boundaries
-###Test_int_gInt <- which(gIntersects(spgeom1 = WI_sld[WI_sld@data$District_N == 1,], spgeom2 = WI_ctracts, byid = TRUE))
-###Test_tracts <- WI_ctracts[Test_int_gInt, ]
-
-## Creating a list of spatialpolygondataframes of census tracts for each state lower district
-
-WI_sld_ctracts<- lapply(1:length(WI_sld@data$District_N), function(x) {
-  int_sld <- which(gIntersects(spgeom1 = WI_sld[WI_sld@data$District_N == x,],
-                                     spgeom2 = WI_ctracts, byid = TRUE))
-  WI_ctracts[int_sld, ]
- })
-
-
-## Creating a list of spatialpolygondataframes of census tracts for each state upper districts
-WI_sud_ctracts<- lapply(1:length(WI_sud@data$SEN_NUM), function(x) {
-  int_sud <- which(gIntersects(spgeom1 = WI_sud[WI_sud@data$SEN_NUM == x,],
-                                spgeom2 = WI_ctracts, byid = TRUE))
-  WI_ctracts[int_sud, ]
-})
-
-
-#created spatial polygon data frames that contain a the percentage of pipulation in each census tracts district
-#according to area of tract within that district
+})), by = "SLDUST")
 
 
-WI_sud_dctracts <- lapply(1:length(WI_sud@data$SEN_NUM), function(x) {
-  sud_c_int <- gIntersection(spgeom1 = WI_sud[WI_sud@data$SEN_NUM == x,],
-                             spgeom2 = WI_sud_ctracts[[x]], byid = TRUE)
-  dc_area <- gArea(spgeom = sud_c_int, byid = TRUE)
-  percentage <- dc_area/WI_sud_ctracts[[x]]@data$area
-  DP0010001 <- WI_sud_ctracts[[x]]@data$DP0010001*percentage
-  SpatialPolygonsDataFrame(sud_c_int, data.frame(dc_area, percentage, DP0010001))
-})
-##I think I add somethign like this in order to make t one single spatial polygondateframe
-## WI_sud@data$DP0010001
-WI_sud_dctracts
-sum(WI_sud_dctracts[[1]]@data$DP0010001)
-WI_sud_dctracts[[1]]@data$percentage
-## Creating a list of spatialpolygondataframes of census tracts for each congressional district
-## need to work on this still
-WI_sud_ctracts[[1]]@data$percentarea
+View(sud_pop)
+
+# Function for creating State Federal Congressional District SpatialPolygonDataFrames with Population
+#based on area of each census tract the district boundary covers
+
+sfcd_pop <- merge(x = fed_congress_state, y = t(sapply(1:length(fed_congress_state@data$CD114FP), function(z) {
+  sd_c_int <- intersect(x =  fed_congress_state[fed_congress_state@data$CD114FP == z,],
+                        y = state_tracts_pop)
+  dc_area <- gArea(spgeom = sd_c_int, byid = TRUE)/1000000
+  percentage <- dc_area/sd_c_int@data$AREA
+  Pop_Total <- round(sum(sd_c_int@data$Pop_Total*percentage))
+  Pop_White <- round(sum(sd_c_int@data$Pop_White*percentage))
+  Pop_Black <- round(sum(sd_c_int@data$Pop_Black*percentage))
+  Pop_American_Indian <- round(sum(sd_c_int@data$Pop_American_Indian*percentage))
+  Pop_Asian <- round(sum(sd_c_int@data$Pop_Asian*percentage))
+  Pop_Hawaian_Pacific_Islander <- round(sum(sd_c_int@data$Pop_Hawaian_Pacific_Islander*percentage))
+  Pop_Hispanic <- round(sum(sd_c_int@data$Pop_Hispanic*percentage))
+  unlist(data.frame(fed_congress_state[fed_congress_state@data$CD114FP == z,], Pop_Total, Pop_White, Pop_Black,
+             Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
+             Pop_Hispanic))
+
+})), by = "CD114FP")
+
+
+
+View(sfcd_pop)
+
