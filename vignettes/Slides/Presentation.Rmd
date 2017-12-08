@@ -1,6 +1,6 @@
 ---
-title: "Class_Presentation"
-author: "Andrea Huerfano"
+title: "Demographics of Gerrymandering"
+author: "Andrea Huerfano & Cory Hertog"
 date: "December 8, 2017"
 output: 
     slidy_presentation: default
@@ -13,27 +13,45 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## R Markdown
+## Project Background
 
 This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
 
-## Slide with Bullets
+## More Project Background
 
 - Bullet 1
 - Bullet 2
 - Bullet 3
 
-## Slide with R Output
+## Project Data: Tigris Package
 
 ```{r cars, echo = TRUE}
 summary(cars)
 ```
 
-## Slide with Plot
+## Project Data: TidyCensus Package
 
 ```{r pressure}
 plot(pressure)
 ```
 
+
+
+## Methods: Intersection & Area
+- how we used percent area to divide populations amongs data
+-image of code
+
+## Results: Wisconsin
+
+## Results: North Carolina
+
+## Results: Choropleth Maps
+
+## Areas for Improvement
+-Prisons & Military Bases
+-Voting Popupulation and Ciitzenship
+-Coordinate systems wth 'sf' package
+
+## Conclusion Slide
