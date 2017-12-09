@@ -72,7 +72,7 @@ Hispanic_over18<-get_decennial(geography = "tract", variables ="P016H003",state 
 #cbind - this works!
 
 Universe_18<- cbind(all,White_over18$value,Black_over18$value,American_Indian_over18$value,Asian_over18$value,Pacific_Islander_over18$value,Hispanic_over18$value)
-
+class(Universe_18$Pop_Total)
 
 #change column names
 names(Universe_18)[4:10]<-c("Pop_Total","Pop_White","Pop_Black","Pop_American_Indian","Pop_Asian","Pop_Hawaian_Pacific_Islander","Pop_Hispanic")
@@ -81,7 +81,7 @@ names(Universe_18)[4:10]<-c("Pop_Total","Pop_White","Pop_Black","Pop_American_In
 
 #merge census tracts df with demographics data
 state_tracts_pop <- merge(state_tracts,Universe_18, by = "GEOID")
-
+class(state_tracts_pop@data$Pop_Total)
 
 
 
