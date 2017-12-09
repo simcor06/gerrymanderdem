@@ -3,9 +3,9 @@ library(sp)
 library(raster)
 
 
-# Function for Creating State Lower SpatialPolygonDataFrames with Population
-#based on area of each census tract the district boundary covers
-sld_pop <- merge(x = state_lower, y = t(sapply(1:length(state_lower@data$SLDLST), function(z) {
+# Function for Creating State Lower DataFrames with Population
+# Based on area of each census tract the district boundary covers
+sld_pop_table <- as.data.frame(t(sapply(1:length(state_lower@data$SLDLST), function(z) {
   sd_c_int <- intersect(x =  state_lower[state_lower@data$SLDLST == z,],
                          y = state_tracts_pop)
   dc_area <- gArea(spgeom = sd_c_int, byid = TRUE)/1000000
@@ -21,13 +21,17 @@ sld_pop <- merge(x = state_lower, y = t(sapply(1:length(state_lower@data$SLDLST)
              Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
              Pop_Hispanic))
 
-})), by = "SLDLST")
+})))
+# converting factors in  data.frame to numeric
+sld_pop_table[] <- lapply(sld_pop_table, function(x)
+  as.numeric(levels(x))[x])
 
-View(sld_pop)
+# merging with  state lower districts
+sld_pop <- merge(x = state_lower, y = sld_pop_table, by = "SLDLST")
 
-# Function for Creating State Upper SpatialPolygonDataFrames with Population
-#based on area of each census tract the district boundary covers
-sud_pop <- merge(x = state_upper, y = t(sapply(1:length(state_upper@data$SLDUST), function(z) {
+# Function for Creating State Upper DataFrames with Population
+# Based on area of each census tract the district boundary covers
+sud_pop_table <- as.data.frame(t(sapply(1:length(state_upper@data$SLDUST), function(z) {
   sd_c_int <- intersect(x =  state_upper[state_upper@data$SLDUST == z,],
                              y = state_tracts_pop)
   dc_area <- gArea(spgeom = sd_c_int, byid = TRUE)/1000000
@@ -43,15 +47,22 @@ sud_pop <- merge(x = state_upper, y = t(sapply(1:length(state_upper@data$SLDUST)
                                       Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
                                       Pop_Hispanic))
 
-})), by = "SLDUST")
+})))
+
+# converting factors in  data.frame to numeric
+sud_pop_table[] <- lapply(sud_pop_table, function(x)
+  as.numeric(levels(x))[x])
+
+# merging with  state lower districts
+sud_pop <- merge(x = state_upper, y = sud_pop_table , by = "SLDUST")
 
 
 View(sud_pop)
 
-# Function for creating State Federal Congressional District SpatialPolygonDataFrames with Population
-#based on area of each census tract the district boundary covers
+# Function for creating State Federal Congressional District DataFrames with Population
+# Based on area of each census tract the district boundary covers
 
-sfcd_pop <- merge(x = fed_congress_state, y = t(sapply(1:length(fed_congress_state@data$CD114FP), function(z) {
+sfcd_pop_table <- as.data.frame(t(sapply(1:length(fed_congress_state@data$CD114FP), function(z) {
   sd_c_int <- intersect(x =  fed_congress_state[fed_congress_state@data$CD114FP == z,],
                         y = state_tracts_pop)
   dc_area <- gArea(spgeom = sd_c_int, byid = TRUE)/1000000
@@ -67,9 +78,13 @@ sfcd_pop <- merge(x = fed_congress_state, y = t(sapply(1:length(fed_congress_sta
              Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
              Pop_Hispanic))
 
-})), by = "CD114FP")
+})))
 
+# converting factors in  data.frame to numeric
+sfcd_pop_table[] <- lapply(sfcd_pop_table, function(x)
+  as.numeric(levels(x))[x])
 
+# merging with federal congressional districts
+sfcd_pop <- merge(x = fed_congress_state, y = sfcd_pop_table , by = "CD114FP")
 
-View(sfcd_pop)
 
