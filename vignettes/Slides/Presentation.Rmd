@@ -9,10 +9,13 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+library(png)
 ```
 
 ## Project Background
-
+- Interested in understanding demography of political districts
+- focus on three district levels: Congress(Federal), State Upper House Legislatures, State Lower House Legislatures
 
 
 ## More Project Background
@@ -22,8 +25,8 @@ knitr::opts_chunk$set(echo = FALSE)
 - Bullet 3
 
 ## Project Data: Tigris Package
-![](fig/3DistrictTypes.png)
 
+![](fig/3DistrictTypes.png)
 ```{r echo = TRUE}
 
 ```
@@ -44,12 +47,10 @@ knitr::opts_chunk$set(echo = FALSE)
 - Some funky code to make everything not factors
 - `merge` dataframe onto district polygons
 
-![](fig/SUD1_wtracts.png)
 
 
-
-```{r}
-
+```{r fig}
+include_graphics("fig/SUD1_wtracts.png")
 ```
 
 ## Example Code
@@ -79,15 +80,17 @@ sld_pop_table[] <- lapply(sld_pop_table, function(x)
 sld_pop <- merge(x = state_lower, y = sld_pop_table, by = "SLDLST")
 ```
 
-## Results: Wisconsin
+## Results: SpatialPolygon Data Frames
+![](fig/Example_Output_Table.png)
 
-## Results: North Carolina
+## Results: Wisconsin Maps
 
-## Results: Choropleth Maps
+## Results: North Carolina Maps
 
 ## Areas for Improvement
--Prisons & Military Bases
--Voting Popupulation and Ciitzenship
--Coordinate systems wth 'sf' package
+- Prisons & Military Base Populations and Locations
+- Coordinate systems based on states or using 'sf' package
+- Voting Population and Citizenship
+
 
 ## Conclusion Slide

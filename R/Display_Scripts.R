@@ -23,8 +23,8 @@ plot(state_upper[state_upper@data$SLDUST == 1,],
      border = "transparent", col = rgb(0, 0, 1, .4), add = TRUE)
 
 ### Population by district Plotting using sp package
-#display.brewer.all(type="seq")
-pal <- brewer.pal(9, "OrRd") # we select 8 colors from the palette
+display.brewer.all(type="seq")
+pal <- brewer.pal(9, "YlOrRd") # we select 8 colors from the palette
 breaks_qt <- classIntervals(sud_pop@data$Pop_Total, n = 9)
 br <- breaks_qt$brks
 offs <- 0.0000001
@@ -50,13 +50,6 @@ for(i in 1:length(wisconsin)) {
 
 
 
-## State upper District one overlaid with all the tracts it intersects
-par(mar = c(0, 0, 0, 0))
-plot(state_tracts[which(gIntersects(spgeom1 = state_upper[state_upper@data$SLDUST == 1,],
-                                    spgeom2 = state_tracts, byid = TRUE )), ], col = "grey")
-plot(state_tracts, col = "grey", border = "red", add = TRUE)
-plot(state_upper[state_upper@data$SLDUST == 1,],
-     border = "transparent", col = rgb(0, 0, 1, .4), add = TRUE)
 
 
 

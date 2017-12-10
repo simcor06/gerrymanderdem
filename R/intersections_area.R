@@ -87,4 +87,5 @@ sfcd_pop_table[] <- lapply(sfcd_pop_table, function(x)
 # merging with federal congressional districts
 sfcd_pop <- merge(x = fed_congress_state, y = sfcd_pop_table , by = "CD114FP")
 
+View(sfcd_pop)
 
