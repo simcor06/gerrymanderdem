@@ -1,3 +1,11 @@
+#' gerrymanderdem package
+#'
+#' This package allows you to find demographic data for voting age populations for different legislative districs
+#' keywords voting gerrymander census
+#' @export
+#' @examples
+#' gerrymanderdem
+
 library(RColorBrewer)
 library(classInt)
 library(GISTools)

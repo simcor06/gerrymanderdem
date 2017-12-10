@@ -1,13 +1,22 @@
+#' gerrymanderdem package
+#'
+#' This package allows you to find demographic data for voting age populations for different legislative districs
+#' keywords voting gerrymander census
+#' @export
+#' @examples
+#' gerrymanderdem
+
 library(rgeos)
 library(sp)
 library(raster)
+library(roxygen2)
 
 
 # Function for Creating State Lower DataFrames with Population
 # Based on area of each census tract the district boundary covers
 sld_pop_table <- as.data.frame(t(sapply(1:length(state_lower@data$SLDLST), function(z) {
   sd_c_int <- intersect(x =  state_lower[state_lower@data$SLDLST == z,],
-                         y = state_tracts_pop)
+                        y = state_tracts_pop)
   dc_area <- gArea(spgeom = sd_c_int, byid = TRUE)/1000000
   percentage <- dc_area/sd_c_int@data$AREA
   Pop_Total <- round(sum(sd_c_int@data$Pop_Total*percentage))
@@ -18,8 +27,8 @@ sld_pop_table <- as.data.frame(t(sapply(1:length(state_lower@data$SLDLST), funct
   Pop_Hawaian_Pacific_Islander <- round(sum(sd_c_int@data$Pop_Hawaian_Pacific_Islander*percentage))
   Pop_Hispanic <- round(sum(sd_c_int@data$Pop_Hispanic*percentage))
   unlist(data.frame(state_lower[state_lower@data$SLDLST == z,], Pop_Total, Pop_White, Pop_Black,
-             Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
-             Pop_Hispanic))
+                    Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
+                    Pop_Hispanic))
 
 })))
 # converting factors in  data.frame to numeric
@@ -35,7 +44,7 @@ View(sld_pop)
 # Based on area of each census tract the district boundary covers
 sud_pop_table <- as.data.frame(t(sapply(1:length(state_upper@data$SLDUST), function(z) {
   sd_c_int <- intersect(x =  state_upper[state_upper@data$SLDUST == z,],
-                             y = state_tracts_pop)
+                        y = state_tracts_pop)
   dc_area <- gArea(spgeom = sd_c_int, byid = TRUE)/1000000
   percentage <- dc_area/sd_c_int@data$AREA
   Pop_Total <- round(sum(sd_c_int@data$Pop_Total*percentage))
@@ -46,8 +55,8 @@ sud_pop_table <- as.data.frame(t(sapply(1:length(state_upper@data$SLDUST), funct
   Pop_Hawaian_Pacific_Islander <- round(sum(sd_c_int@data$Pop_Hawaian_Pacific_Islander*percentage))
   Pop_Hispanic <- round(sum(sd_c_int@data$Pop_Hispanic*percentage))
   unlist(data.frame(state_upper[state_upper@data$SLDUST == z,], Pop_Total, Pop_White, Pop_Black,
-                                      Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
-                                      Pop_Hispanic))
+                    Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
+                    Pop_Hispanic))
 
 })))
 
@@ -77,8 +86,8 @@ sfcd_pop_table <- as.data.frame(t(sapply(1:length(fed_congress_state@data$CD114F
   Pop_Hawaian_Pacific_Islander <- round(sum(sd_c_int@data$Pop_Hawaian_Pacific_Islander*percentage))
   Pop_Hispanic <- round(sum(sd_c_int@data$Pop_Hispanic*percentage))
   unlist(data.frame(fed_congress_state[fed_congress_state@data$CD114FP == z,], Pop_Total, Pop_White, Pop_Black,
-             Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
-             Pop_Hispanic))
+                    Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
+                    Pop_Hispanic))
 
 })))
 
@@ -90,4 +99,3 @@ sfcd_pop_table[] <- lapply(sfcd_pop_table, function(x)
 sfcd_pop <- merge(x = fed_congress_state, y = sfcd_pop_table , by = "CD114FP")
 
 View(sfcd_pop)
-
