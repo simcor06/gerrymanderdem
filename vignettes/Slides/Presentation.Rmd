@@ -91,6 +91,7 @@ sld_pop <- merge(x = state_lower, y = sld_pop_table, by = "SLDLST")
 - Prisons & Military Base Populations and Locations
 - Coordinate systems based on states or using 'sf' package
 - Voting Population and Citizenship
+- Using different methods for displaying choropleth maps (`ggplot2`, `GISTools`, `leaflet`, or  `tmap`)
 
 
 ## Conclusion Slide

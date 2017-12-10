@@ -29,6 +29,8 @@ sld_pop_table[] <- lapply(sld_pop_table, function(x)
 # merging with  state lower districts
 sld_pop <- merge(x = state_lower, y = sld_pop_table, by = "SLDLST")
 
+View(sld_pop)
+
 # Function for Creating State Upper DataFrames with Population
 # Based on area of each census tract the district boundary covers
 sud_pop_table <- as.data.frame(t(sapply(1:length(state_upper@data$SLDUST), function(z) {
