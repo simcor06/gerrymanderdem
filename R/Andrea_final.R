@@ -1,6 +1,5 @@
 library(tigris)
 library(tidycensus)
-library(tidyverse)
 library(rgdal)
 library(rgeos)
 

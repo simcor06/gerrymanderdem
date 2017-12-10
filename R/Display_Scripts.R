@@ -37,36 +37,36 @@ for(i in 1:length(districts_pop)) {
 
 
 ## displaying upper District Total Populations
+
 ##display.brewer.all(type="seq")
-par(mfrow = c(1, 3))
-pal <- brewer.pal(5, "YlOrRd")# we select 4 colors from the palette
-breaks_qt <- classIntervals(sud_pop@data$Pop_Total, n = 5)
+pal <- brewer.pal(5, "Blues")# we select 4 colors from the palette
+breaks_qt <- classIntervals(sud_pop@data$Pop_Black, n = 5)
 br <- breaks_qt$brks
 offs <- 0.0000001
 br[1] <- br[1] - offs
 br[length(br)] <- br[length(br)] + offs
-sud_pop@data$Pop_Total_R_bracket <- cut(sud_pop@data$Pop_Total, br)
-spplot(sud_pop, "Pop_Total_R_bracket", main = "State Upper District Populations", col.regions = pal)
+sud_pop@data$Pop_Black_R_bracket <- cut(sud_pop@data$Pop_Black, br)
+spplot(sud_pop, "Pop_Black_R_bracket", main = "State Upper District Black Populations", col.regions = pal)
 
 ##Displaying Lower District Population
-pal <- brewer.pal(5, "YlOrRd")# we select 4 colors from the palette
-breaks_qt <- classIntervals(sld_pop@data$Pop_Total, n = 5)
+pal <- brewer.pal(5, "Blues")# we select 4 colors from the palette
+breaks_qt <- classIntervals(sld_pop@data$Pop_Black, n = 5)
 br <- breaks_qt$brks
 offs <- 0.0000001
 br[1] <- br[1] - offs
 br[length(br)] <- br[length(br)] + offs
-sld_pop@data$Pop_Total_R_bracket <- cut(sld_pop@data$Pop_Total, br)
-spplot(sld_pop, "Pop_Total_R_bracket", main = "State Lower District Populations", col.regions = pal)
+sld_pop@data$Pop_Black_R_bracket <- cut(sld_pop@data$Pop_Black, br)
+spplot(sld_pop, "Pop_Black_R_bracket", main = "State Lower District Black Populations", col.regions = pal)
 
 ## Displaying Federal district populations
-pal <- brewer.pal(5, "YlOrRd")# we select 4 colors from the palette
-breaks_qt <- classIntervals(sfcd_pop@data$Pop_Total, n = 5)
+pal <- brewer.pal(5, "Blues")# we select 4 colors from the palette
+breaks_qt <- classIntervals(sfcd_pop@data$Pop_Black, n = 5)
 br <- breaks_qt$brks
 offs <- 0.0000001
 br[1] <- br[1] - offs
 br[length(br)] <- br[length(br)] + offs
-sfcd_pop@data$Pop_Total_R_bracket <- cut(sfcd_pop@data$Pop_Total, br)
-spplot(sfcd_pop, "Pop_Total_R_bracket", col.regions = pal)
+sfcd_pop@data$Pop_Black_R_bracket <- cut(sfcd_pop@data$Pop_Black, br)
+spplot(sfcd_pop, "Pop_Black_R_bracket", main = "Federal Congressional District Black Populations", col.regions = pal)
 
 ###  DOESN't WORK### Using GISTools Package
 shd <-  auto.shading(sud_pop@data$Pop_Total)

@@ -14,21 +14,19 @@ library(png)
 ```
 
 ## Project Background
+- Another Gerrymandering project with Brian Remlinger from Princeton
 - Interested in understanding demography of political districts
-- focus on three district levels: Congress(Federal), State Upper House Legislatures, State Lower House Legislatures
+- Focus on three district levels: Congress(Federal), State Upper House Legislatures, State Lower House Legislatures
+- Focus on Voting Population (18 and Older)
+- packages used include , `sp`, `rgeos`, `raster`, `rgdal`, `tigris`, `tidycensus`
 
 
-## More Project Background
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
 
 ## Project Data: Tigris Package
 
-![](fig/3DistrictTypes.png)
-```{r echo = TRUE}
 
+```{r out.width= "50%", out.height= "50%", fig.align='center'}
+include_graphics("fig/3DistrictTypes.png")
 ```
 
 ## Project Data: TidyCensus Package
@@ -46,10 +44,7 @@ library(png)
 - Wrap it all in an `sapply` for iteration to create a data frame
 - Some funky code to make everything not factors
 - `merge` dataframe onto district polygons
-
-
-
-```{r fig}
+```{r out.width= "45%", out.height= "60%", fig.align='right'}
 include_graphics("fig/SUD1_wtracts.png")
 ```
 
@@ -81,17 +76,49 @@ sld_pop <- merge(x = state_lower, y = sld_pop_table, by = "SLDLST")
 ```
 
 ## Results: SpatialPolygon Data Frames
-![](fig/Example_Output_Table.png)
+- Output is 3 `SpatialPolygonDataFrames` for each district type with associated demographic data (18 years adn older)
+
+```{r out.width= "100%", out.height= "50%"}
+include_graphics("fig/Example_Output_Table.png")
+```
+
 
 ## Results: Wisconsin Maps
+- Used `spplot` function in `sp` package along with packages `RColorBrewer` and `Classint`
+
+```{r out.width= "30%", out.height= "40%"}
+include_graphics("fig/WISLD_choro.png")
+include_graphics("fig/WISUD_choro.png")
+include_graphics("fig/WISFCD_choro.png")
+```
+```{r out.width= "30%", out.height= "40%"}
+include_graphics("fig/WISLD_choro_black.png")
+include_graphics("fig/WISUD_choro_black.png")
+include_graphics("fig/WISFCD_choro_black.png")
+
+```
 
 ## Results: North Carolina Maps
+```{r out.width= "30%", out.height= "50%"}
+include_graphics("fig/NCSLD_choro.png")
+include_graphics("fig/NCSUD_choro.png")
+include_graphics("fig/NCSFCD_choro.png")
+```
+
+```{r out.width= "30%", out.height= "50%"}
+include_graphics("fig/NCSLD_choro_black.png")
+include_graphics("fig/NCSUD_choro_black.png")
+include_graphics("fig/NCSFCD_choro_black.png")
+```
 
 ## Areas for Improvement
 - Prisons & Military Base Populations and Locations
-- Coordinate systems based on states or using 'sf' package
+- Coordinate systems based on states or using `sf` package
 - Voting Population and Citizenship
 - Using different methods for displaying choropleth maps (`ggplot2`, `GISTools`, `leaflet`, or  `tmap`)
 
 
 ## Conclusion Slide
+- Now a package for voting population demography by political district
+- Allows a user to better understand how gerrymandering divides certain populations
+- Another small step in the battle to fight the man
