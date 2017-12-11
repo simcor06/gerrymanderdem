@@ -8,7 +8,7 @@
 
 library(RColorBrewer)
 library(classInt)
-library(GISTools)
+library(roxygen2)
 
 ## Plotting Results
 # Good Walkthrough sppplot functionality https://cengel.github.io/rspatial/4_Mapping.nb.html#choropleth-mapping-with-spplot
