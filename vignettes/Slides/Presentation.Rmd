@@ -17,9 +17,8 @@ library(png)
 - Another Gerrymandering project with Brian Remlinger from Princeton
 - Interested in understanding demography of political districts
 - Focus on three district levels: Congress(Federal), State Upper House Legislatures, State Lower House Legislatures
-- Focus on Voting Population (18 and Older)
-- packages used include , `sp`, `rgeos`, `raster`, `rgdal`, `tigris`, `tidycensus`
-
+- Focus on voting population (18 and Older)
+- Packages used include: `sp`, `rgeos`, `raster`, `rgdal`, `tigris`, `tidycensus`
 
 
 ## Project Data: Tigris Package
@@ -38,15 +37,13 @@ include_graphics("fig/3DistrictTypes.png")
 
 
 ## Methods: Intersection & Area
-- `intersect` census tracts with districts
+- `intersect` census tracts with districts <img style="float: right;" src="fig/SUD1_wtracts.png">
 - `gArea` to find how much area of each tract is contained in each district
-- Multiply population data by ratio of how much area of each tract is contained in each district by original tract area
+- Multiply population data by ratio of how much area of each tract is contained in each district by original tract area 
 - Wrap it all in an `sapply` for iteration to create a data frame
 - Some funky code to make everything not factors
 - `merge` dataframe onto district polygons
-```{r out.width= "45%", out.height= "60%", fig.align='right'}
-include_graphics("fig/SUD1_wtracts.png")
-```
+
 
 ## Example Code
 ```{r echo = TRUE, eval = FALSE}
@@ -76,7 +73,7 @@ sld_pop <- merge(x = state_lower, y = sld_pop_table, by = "SLDLST")
 ```
 
 ## Results: SpatialPolygon Data Frames
-- Output is 3 `SpatialPolygonDataFrames` for each district type with associated demographic data (18 years adn older)
+- Output is three `SpatialPolygonDataFrames`, one for each district type with associated demographic data (18 years and older)
 
 ```{r out.width= "100%", out.height= "50%"}
 include_graphics("fig/Example_Output_Table.png")
@@ -112,13 +109,13 @@ include_graphics("fig/NCSFCD_choro_black.png")
 ```
 
 ## Areas for Improvement
-- Prisons & Military Base Populations and Locations
+- Prisons & Military Base populations and locations
 - Coordinate systems based on states or using `sf` package
-- Voting Population and Citizenship
+- Voting Population and citizenship
 - Using different methods for displaying choropleth maps (`ggplot2`, `GISTools`, `leaflet`, or  `tmap`)
 
 
-## Conclusion Slide
+## Conclusion
 - Now a package for voting population demography by political district
 - Allows a user to better understand how gerrymandering divides certain populations
 - Another small step in the battle to fight the man
