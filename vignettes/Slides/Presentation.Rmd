@@ -22,6 +22,8 @@ library(png)
 
 
 ## Project Data: Tigris Package
+- TIGER/Line shapefiles
+- Download specific geographic data
 
 
 ```{r out.width= "50%", out.height= "50%", fig.align='center'}
@@ -29,6 +31,9 @@ include_graphics("fig/3DistrictTypes.png")
 ```
 
 ## Project Data: TidyCensus Package
+- Decennial Census and five year American Community Survey data
+- Along with the geographic boundary files.
+- Load variables
 
 ```{r pressure}
 
