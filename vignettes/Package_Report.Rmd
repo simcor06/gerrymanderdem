@@ -17,7 +17,7 @@ The development of this package was originally thought of by Sam Wang & Brian Re
 Understanding how gerrymandering districts affects the distribution of racial groups within legislative district is an important step to understanding the problem. Techniques such as "stacking" or "cracking" can diminish the ability for minority populations to gain representation in legislative boundaries.  In Baldus v. Brennan, a federal judge ruled that the way certain assembly districts had been drawn in Milwaukee had effectively ['cracked' Latino voters](https://www.propublica.org/article/partisan-gerrymandering-is-still-about-race).
 
 ### Necessary Project Pre-Work
-In order for this project work, the user needs to do two preemptive actions before starting.  The first is to determine the Federal Information Processing Standard Publication (FIPS) code for the US state of interest.  FIPS codes can be obtained form the [census](https://www.census.gov/geo/reference/ansi_statetables.html) website. 
+In order for this package to work, the user needs to do two preemptive actions before starting.  The first is to determine the Federal Information Processing Standard Publication (FIPS) code for the US state of interest.  FIPS codes can be obtained form the [census](https://www.census.gov/geo/reference/ansi_statetables.html) website. 
 
 The second step will be to obtain a census key from this website: [https://api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).  This key allows the user to obtain access to the census data provided by the package `tidycensus`, which is a required package for this package.
 
