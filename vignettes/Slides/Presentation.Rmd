@@ -1,7 +1,7 @@
 ---
 title: "Demographics of Gerrymandering"
 author: "Andrea Huerfano & Cory Hertog"
-date: "December 10, 2017"
+date: "December 11, 2017"
 output: 
     slidy_presentation: default
     ioslides_presentation: default 
@@ -117,7 +117,7 @@ include_graphics("fig/NCSFCD_choro_black.png")
 ## Areas for Improvement
 - Prisons & Military Base populations and locations
 - Coordinate systems based on states or using `sf` package
-- Voting Population and citizenship
+- Voting population and citizenship
 - Using different methods for displaying choropleth maps (`ggplot2`, `GISTools`, `leaflet`, or  `tmap`)
 
 
