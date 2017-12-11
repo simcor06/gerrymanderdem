@@ -9,6 +9,7 @@
 library(RColorBrewer)
 library(classInt)
 library(roxygen2)
+library(tmap)
 
 ## Plotting Results
 # Good Walkthrough sppplot functionality https://cengel.github.io/rspatial/4_Mapping.nb.html#choropleth-mapping-with-spplot
@@ -36,8 +37,8 @@ plot(state_upper[state_upper@data$SLDUST == 1,],
 
 ## displaying upper District Total Populations
 
-##display.brewer.all(type="seq")
-pal <- brewer.pal(5, "Blues")# we select 4 colors from the palette
+display.brewer.all(type="seq")
+#pal <- brewer.pal(5, "Blues")# we select 4 colors from the palette
 breaks_qt <- classIntervals(sud_pop@data$Pop_Black, n = 5)
 br <- breaks_qt$brks
 offs <- 0.0000001
@@ -65,6 +66,18 @@ br[1] <- br[1] - offs
 br[length(br)] <- br[length(br)] + offs
 sfcd_pop@data$Pop_Black_R_bracket <- cut(sfcd_pop@data$Pop_Black, br)
 spplot(sfcd_pop, "Pop_Black_R_bracket", main = "Federal Congressional District Black Populations", col.regions = pal)
+
+# check this out for tmap help https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html
+pal <- brewer.pal(5, "YlOrRd")
+tm_shape(sld_pop) +
+  tm_polygons("Pop_Total", style="quantile", palette = pal,  title="Wisconsin Lower House District Populations") +
+  tm_legend(text.size=.8,
+            title.size=1.5,
+            position = c("right","top"),
+            bg.color = "white",
+            bg.alpha=.2,
+            frame="transparent",
+            height=.18)
 
 
 
