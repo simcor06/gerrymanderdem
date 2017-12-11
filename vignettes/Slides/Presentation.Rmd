@@ -14,14 +14,14 @@ library(png)
 ```
 
 ## Project Background
-- Another Gerrymandering project with Brian Remlinger from Princeton
+- Another gerrymandering project with Brian Remlinger from Princeton
 - Interested in understanding demography of political districts
 - Focus on three district levels: Congress(Federal), State Upper House Legislatures, State Lower House Legislatures
 - Focus on voting population (18 and older)
 - Packages used include: `sp`, `rgeos`, `raster`, `rgdal`, `tigris`, `tidycensus`
 
 
-## Project Data: Tigris Package
+## Project Data: tigris Package
 - TIGER/Line shapefiles
 - Download political district and census tracts geographic data
 
