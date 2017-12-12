@@ -1,11 +1,26 @@
 Package: gerrymanderdem
 Type: Package
-Title: What the Package Does (Title Case)
+Title: This package creates demographic population data for state and federal legislative districts
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Cory Hertog & Andrea Huerfano
+Maintainer: Cory Hertog <cory.hertog@gmail.com>
+Description: This package uses 2010 census tract level data to create demographic population data.
+    Population data can be used to create demographic data for the 48 contiguous state upper house,
+    state lower house, and federal congressional legislative districts.
+License: Creative Commons
 Encoding: UTF-8
 LazyData: true
+Imports: tigris,
+    tidycensus,
+    rgdal,
+    rgeos,
+    sp,
+    raster
+Suggests: knitr,
+    rmarkdown,
+    tmap,
+    RColorBrewer,
+    ClassInt,
+    ggplot2
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
