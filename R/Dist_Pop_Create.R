@@ -9,7 +9,7 @@
 library(rgeos)
 library(sp)
 library(raster)
-library(roxygen2)
+
 
 
 # Function for Creating State Lower DataFrames with Population

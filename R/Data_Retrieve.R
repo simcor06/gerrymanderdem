@@ -10,7 +10,6 @@ library(tigris)
 library(tidycensus)
 library(rgdal)
 library(rgeos)
-library(roxygen2)
 
 ####### FOLLOWING ARE SPATIAL-RELATED OPERATIONS ########
 
