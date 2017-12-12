@@ -35,7 +35,7 @@ aea_US <- ("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0
 
 ######### Pick one of the following categories with quotation markes for object dem #########
 #"Pop_Total","Pop_White","Pop_Black","Pop_American_Indian","Pop_Asian","Pop_Hawaiian_Pacific_Islander","Pop_Hispanic"
-dem <- "Pop_Total" # Used for mapping step, nothing else
+dem <- "Pop_Hispanic" # Used for mapping step, nothing else
 
 #### Pick a projection to display maps for map_proj object , should be  for state interested in ########
 ## use http://www.spatialreference.org/ref/esri/102003/. Albers Equal Area for USA
@@ -220,10 +220,10 @@ for(i in 1:length(districts_pop)){
   print(tm_shape(districts_pop[[i]], projection = map_proj) +
           tm_polygons(dem, style="quantile", palette = pal,  title= dem) +
           tm_layout(title = districts[i], title.position = c("center", "top"), title.size = 1.3,
-                    frame = "transparent", inner.margins = rep(.18)) +
+                    frame = "transparent", inner.margins = c(.1, .1, .2, .1)) +
           tm_legend(text.size= 1.4,
-                    title.size=1.6,
-                    position = c(.3, .07),
+                    title.size=2,
+                    position = c(.2, .02),
                     bg.color = "white",
                     bg.alpha=.0,
                     frame="transparent",
