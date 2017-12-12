@@ -5,7 +5,7 @@
 #' @export
 #' @examples
 #' gerrymanderdem
-#' @importMethodsFrom GenomicRanges, as.data.frame
+
 
 library(tigris)
 library(tidycensus)
