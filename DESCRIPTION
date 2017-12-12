@@ -15,7 +15,6 @@ Imports: tigris,
     rgdal,
     rgeos,
     sp,
-    raster
 Suggests: knitr,
     rmarkdown,
     tmap,
