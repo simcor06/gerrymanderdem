@@ -23,7 +23,7 @@ The second step will be to obtain a census key from this website: [https://api.c
 
 ## Methods
 
-### Data Acquisition and Preparation
+### Data Acquisition and Preparation (Andrea Huerfano)
 
 ### Intersections and Population Calculations (Cory Hertog)
 The below figure demonstrates the problem with using census tracts to determine the populations of districts.
@@ -80,5 +80,23 @@ sld_pop <- merge(x = state_lower, y = sld_pop_table, by = "SLDLST")
 This code/process is essentially run three different times since the three different legislative districts have differing data frame attributes from the data retrieval. The outcome is three `SpatialPolygonDataFrames` for the three different legislative levels.
 
 ## Results
+The results from this code can create three `SpatialPolygonDataFrames` objects:
+- `sld_pop`: State Lower House Distrcts with associated population data
+- `sud_pop`: State Upper House Districts with associated population data
+- `sfcd_pop`: State Level Federal Congressional Districts with associated populations data
+
+These three spatial data farems can than be used to create choropleth maps of voting age population in the stte in each of the three levels of legislative districts
+
+Population's Information is available for the following Ethnic groups, as classified by the US Census Bureau, and avaialable for each district in each of the the three `SpatialPolygonDataFrames`:
+
+- "Pop_Total": the total voting age population of the district
+- "Pop_White": the total voting age population identified as white for the district
+- "Pop_Black": the total voting age population identified as black for the district
+- "Pop_American_Indian": the total voting age population identified as American Indian for the district
+- "Pop_Asian": the total voting age population identified as Asian for the district
+- "Pop_Hawaiian_Pacific_Islander": the total voting age populations identified as Hawaiian/Pacific Islander for the district
+- "Pop_Hispanic": the total voting age populations identified as Hispanic for the district
+
+In order to display the data and create readable maps, we used the `tamp` and `tmaptools` packages. These follow simialr coding rules as laid out in the tidyverse and the package `ggplot2`.  This package not only made making readable choropleth maps quickly, 
 
 ## Discussion
