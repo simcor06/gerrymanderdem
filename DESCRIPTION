@@ -15,12 +15,12 @@ Imports: tigris,
     rgdal,
     rgeos,
     sp,
-    raster
+    raster,
+    tmap,
+    tmaptools,
+    RcolorBrewer
 Suggests: knitr,
     rmarkdown,
-    tmap,
-    RColorBrewer,
-    ClassInt,
     ggplot2
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
