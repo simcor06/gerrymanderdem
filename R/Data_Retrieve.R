@@ -201,7 +201,7 @@ plot(state_upper[state_upper@data$SLDUST == 1,],
 ## displaying upper District Total Populations
 
 display.brewer.all(type="seq")
-#pal <- brewer.pal(5, "Blues")# we select 4 colors from the palette
+pal <- brewer.pal(5, "Blues")# we select 4 colors from the palette
 breaks_qt <- classIntervals(sud_pop@data$Pop_Black, n = 5)
 br <- breaks_qt$brks
 offs <- 0.0000001
