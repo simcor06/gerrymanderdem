@@ -54,7 +54,7 @@ fed_congress_state@data$CD114FP <- as.numeric(fed_congress_state@data$CD114FP)
 
 ###### FOLLOWING ARE DEMOGRAPHIC-RELATED OPERATIONS #######
 
-census_api_key(key)
+census_api_key(key, install = TRUE)
 all<-get_decennial(geography = "tract", variables = "P0100001", state= FIPS, year=2010)
 White_over18<-get_decennial(geography = "tract", variables ="P016A003",state = FIPS, year = 2010)
 Black_over18<-get_decennial(geography = "tract", variables ="P016B003",state = FIPS, year = 2010)
