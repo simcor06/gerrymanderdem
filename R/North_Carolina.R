@@ -117,7 +117,7 @@ sld_pop_table <- as.data.frame(t(sapply(1:length(state_lower@data$SLDLST), funct
                     Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
                     Pop_Hispanic))
 
-})))
+})), stringsAsFactors = FALSE)
 # converting factors in  data.frame to numeric
 sld_pop_table[] <- lapply(sld_pop_table, function(x)
   as.numeric(levels(x))[x])
@@ -145,7 +145,7 @@ sud_pop_table <- as.data.frame(t(sapply(1:length(state_upper@data$SLDUST), funct
                     Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
                     Pop_Hispanic))
 
-})))
+})), stringsAsFactors = FALSE)
 
 # converting factors in  data.frame to numeric
 sud_pop_table[] <- lapply(sud_pop_table, function(x)
@@ -176,7 +176,7 @@ sfcd_pop_table <- as.data.frame(t(sapply(1:length(fed_congress_state@data$CD114F
                     Pop_American_Indian, Pop_Asian, Pop_Hawaian_Pacific_Islander,
                     Pop_Hispanic))
 
-})))
+})), stringsAsFactors = FALSE)
 
 # converting factors in  data.frame to numeric
 sfcd_pop_table[] <- lapply(sfcd_pop_table, function(x)
