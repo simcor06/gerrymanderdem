@@ -10,15 +10,7 @@ Description: This package uses 2010 census tract level data to create demographi
 License: Creative Commons
 Encoding: UTF-8
 LazyData: true
-Imports: tigris,
-    tidycensus,
-    rgdal,
-    rgeos,
-    sp,
-    raster,
-    tmap,
-    tmaptools,
-    RcolorBrewer
+Imports: 
 Suggests: knitr,
     rmarkdown,
     ggplot2

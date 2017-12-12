@@ -13,7 +13,6 @@ library(rgeos)
 library(sp)
 library(raster)
 library(RColorBrewer)
-library(classInt)
 library(tmap)
 library(tmaptools)
 
