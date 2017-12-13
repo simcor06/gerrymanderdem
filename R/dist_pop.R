@@ -32,18 +32,3 @@ dist_pop <- function(leg, collev, ctracts = state_tracts_pop) {
 
 
 
-dist_pop(state_lower, "SLDLST")
-
-tm_shape(dist_pop(state_lower, "SLDLST"), projection = map_proj) +
-  tm_polygons(dem, style="quantile", palette = pal,  title= dem) +
-  tm_layout(title = "stuff", title.position = c("center", "top"),
-            title.size = 1.3, frame = "transparent",
-            inner.margins = c(.1, .1, .2, .1)) +
-  tm_legend(text.size= 1.4,
-            title.size=2,
-            position = c(.2, .02),
-            bg.color = "white",
-            bg.alpha=.0,
-            frame="transparent",
-            height=.4,
-            width =.6)
