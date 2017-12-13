@@ -1,16 +1,16 @@
 #' US Census district population function
 #' @description  Calculates district populations proportional to census tracts
 #' @param leg SpatialPolygonsDataFrame of legislative districts
-#' @param collev Character vector naming the column containing district numbers
-#' @param ctracts SpatialPolygonsDataFrame of state census tracts
+#' @param cname Character vector naming the column containing district numbers
+#' @param ctracts SpatialPolygonsDataFrame of state census tracts with population data
 #' @details This function uses district census data downloaded
 #' using the tracts functions from the tigress package, and
 
-dist_pop <- function(leg, collev, ctracts = state_tracts_pop) {
+sd_pop <- function(leg, cname, ctracts) {
   merge( x = leg,
-         y = as.data.frame(lapply(as.data.frame(t(sapply(1:length(leg@data[, collev]),
+         y = as.data.frame(lapply(as.data.frame(t(sapply(1:length(leg@data[, cname]),
                                                          function(z) {
-      sd_c_int <- intersect(x = leg[leg@data[, collev] == z, ],
+      sd_c_int <- intersect(x = leg[leg@data[, cname] == z, ],
                               y = ctracts)
       dc_area <- gArea(spgeom = sd_c_int, byid = TRUE)
       perc <- dc_area / sd_c_int$AREA
@@ -27,7 +27,7 @@ dist_pop <- function(leg, collev, ctracts = state_tracts_pop) {
                         Pop_American_Indian, Pop_Asian,
                         Pop_Hawaian_Pacific_Islander, Pop_Hispanic))
     }))), function(x)
-      as.numeric(levels(x))[x])), by = collev)
+      as.numeric(levels(x))[x])), by = cname)
 }
 
 
