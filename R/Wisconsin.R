@@ -34,7 +34,7 @@ aea_US <- ("+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=37.5 +lon_0=-96 +x_0=0 +y_0
 
 ######### Pick one of the following categories with quotation markes for object dem #########
 #"Pop_Total","Pop_White","Pop_Black","Pop_American_Indian","Pop_Asian","Pop_Hawaiian_Pacific_Islander","Pop_Hispanic"
-dem <- "Pop_Total" # Used for mapping step, nothing else
+dem <- "Pop_Black" # Used for mapping step, nothing else
 
 #### Pick a projection to display maps, should be  for state interseted in ########
 map_proj <- get_proj4(3070) #### currently a Transverse mercator for Wisconsin
@@ -212,18 +212,18 @@ for(i in 1:length(districts_pop)) {
 
 
 # Displays Districts wiht designated population amounts
-pal <- brewer.pal(5, "YlOrRd")
+pal <- brewer.pal(5, "Blues")
 
 for(i in 1:length(districts_pop)){
   print(tm_shape(districts_pop[[i]], projection = map_proj) +
           tm_polygons(dem, style="quantile", palette = pal,  title= dem) +
           tm_layout(title = districts[i], title.position = c("right", "top"), title.size = 1,
-                    frame = "transparent", inner.margins = rep(.08)) +
+                    frame = "transparent", inner.margins = rep(.1)) +
           tm_legend(text.size=.8,
                     title.size=1.5,
                     position = c(.03, .09),
                     bg.color = "white",
-                    bg.alpha=.2,
+                    bg.alpha=.0,
                     frame="transparent",
-                    height=.19))
+                    height=.25))
 }
