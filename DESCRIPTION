@@ -11,8 +11,8 @@ License: Creative Commons
 Encoding: UTF-8
 LazyData: true
 Imports:rgeos,
-sp,
-raster,
+    sp,
+    raster,
 Suggests: knitr,
     rmarkdown,
     ggplot2,
