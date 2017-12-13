@@ -1,7 +1,7 @@
 #' US Census district population function
 #' @description  Calculates district populations proportional to census tracts
 #' @param leg SpatialPolygonsDataFrame of legislative districts
-#' @param collev Character vector naming the column containing district number
+#' @param collev Character vector naming the column containing district numbers
 #' @param ctracts SpatialPolygonsDataFrame of state census tracts
 #' @details This function uses district census data downloaded
 #' using the tracts functions from the tigress package, and
