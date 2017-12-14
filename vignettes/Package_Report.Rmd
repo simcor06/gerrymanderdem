@@ -18,12 +18,12 @@ library(png)
 # Introduction
 
 ## Project Summary (Cory Hertog)
-This package uses 2010 census tract level demographic data in conjunction with federal, state upper house, and state lower house legislative voting boundaries to better understand the demographic makeup of each of these political areas. It creates three `SpatialPolygonDataFrames`, one for each type of legislative body, that contain voting age (18 and Over) data total population, White population, Back population, American Indian population, Asian population, Hawaiian/pacific islander and Hispanic population for each of the districts within that legislative body. This can be done for all 48 contiguous states in the United States.
+This package uses 2010 census tract level demographic data in conjunction with federal, state upper house, and state lower house legislative voting boundaries to better understand the demographic makeup of each of these political areas. It creates three `SpatialPolygonDataFrames`, one for each type of legislative body, that contain voting age (18 and over) population, White population, Black population, American Indian population, Asian population, Hawaiian/Pacific Islander and Hispanic population for each of the districts within that legislative body. This can be done for all 48 contiguous states in the United States.
 
 ## Gerrymandering and Project Background (Cory Hertog)
 The development of this package was originally thought of by Sam Wang & Brian Remlinger at the [Princeton Gerrymandering Project](http://gerrymander.princeton.edu/). Gerrymandering, which involves drawing the boundaries of legislative districts to benefit one party or the other, is a current hot topic in the US with challenges to [Wisconsin's state redistricting in 2012](https://www.reuters.com/article/us-usa-court-election/justice-kennedy-on-hot-seat-in-major-voting-rights-case-idUSKCN1C81P2) being debated in the Supreme Court during the development of this package. This case could have lasting effect on how political voting districts are drawn in the US. However, gerrymandering has occurred in the US for most of its history, but a workable standard for determining if a district is gerrymandered remains elusive.
 
-Understanding how gerrymandering districts affects the distribution of racial groups within legislative districts is an important step to understanding the problem. Techniques such as "stacking" or "cracking" can diminish the ability for minority populations to gain representation in legislative boundaries.  In Baldus v. Brennan, a federal judge ruled that the way certain assembly districts had been drawn in Milwaukee had effectively ['cracked' Latino voters](https://www.propublica.org/article/partisan-gerrymandering-is-still-about-race).
+Understanding how gerrymandering districts affects the distribution of racial groups within legislative districts is an important step to understanding the problem. Techniques such as "stacking" or "cracking" can diminish the ability for minority populations to gain representation in legislative boundaries.  In Baldus v. Brennan, a federal judge ruled that the way certain assembly districts had been drawn in Milwaukee had effectively ['cracked' Latino voters](https://www.propublica.org/article/partisan-gerrymandering-is-still-about-race). This package hopes to help develop an understanding for how certain races are disperesed throughout legislative districts.
 
 
 
@@ -32,7 +32,7 @@ Understanding how gerrymandering districts affects the distribution of racial gr
 ## Necessary Project Pre-Work (Cory Hertog)
 In order for this project to work on anyone's computer the user needs to do two premptive actions before starting.  The first is to determine the Federal Information Processing Standard Publication (FIPS) code for the US state of interest.  FIPS codes can be obtained form the [census](https://www.census.gov/geo/reference/ansi_statetables.html) wesbite. 
 
-The second step will be to obtain a census key from this website: [https://api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).  This key allows the user to obtain access to the census data provided by the package `tidycensus`, which is a required package for this package.
+The second step will be to obtain a census key from this website: [https://api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).  This key allows the user to obtain access to the census data provided by the package `tidycensus`, which is a required package for this package. The user will have to load the `tidycenus` package, and then use the function `census_api_key(key, install = TRUE)`.  the key value in this function should be the key provided to you by the census.
 
 
 
@@ -40,26 +40,34 @@ The second step will be to obtain a census key from this website: [https://api.c
 
 ## Data Acquisition and Preparation (Andrea Huerfano)
 
+```{r out.width= "30%", out.height= "30%"}
+include_graphics("fig/WI_SLD.png")
+include_graphics("fig/WI_SUD.png")
+include_graphics("fig/WI_SFCD.png")
+```
+```{r fig.align='center', out.width= "50%", out.height= "50%"}
+include_graphics("fig/WI_ctracts.png")
+```
 ## Intersections and Population Calculations (Cory Hertog)
-The largest problem with determining population of legislative districts is that census tract boundaries do no match the boundaries of districts. The below figure demonstrates the problem with using census tracts to determine the populations of districts. The blue area is Wisconsin's Lower House District 1, while the red outlines are the census tract boundaries. The problem area in this case can mainly be seen in the southern portion of the district boundaries.
+The largest problem with determining population of legislative districts is that census tract boundaries do no match the boundaries of districts. The below figure demonstrates the problem with using census tracts to determine the populations of districts. The blue area is Wisconsin's Lower House District 1, while the red outlines are the census tract boundaries. The problem areas in this case can mainly be seen in the southern portion of the district boundaries.
 
 ```{r fig.align='center', out.width= "60%", out.height= "30%"}
 include_graphics("fig/SUD1_wtracts.png")
 ```
 
-To determine population for each legislative district type, we assume that population throughout a census tract is dispersed evenly. The package uses functions from the packages from `raster`, `sp` and `rgeos`.  The basic idea behind dispersing population within districts from census tracts is to give the proportion of the population to the district the same as the proportion of area that that district overlaps within that tract. To do this the following procedures were done in the script "Dist_Pop_Create.R":
+To determine population for each legislative district type, we assume that population throughout a census tract is dispersed evenly. The package uses functions from the packages `raster`, `sp` and `rgeos`.  The basic idea behind distributing population within districts from census tracts is to give the proportion of the population to the district that is equal to the proportion of area that that district overlaps within that tract. To do this the following procedures were done:
 
 1. Project `SpatialPolygonDataFrames` of legislative districts and census tracts into an Albers Equal Area US projection system using `spTransform`.
 
 2. use `gArea` to determine the area of each census tract.
 
-3. use `raster::intersect` to determine the which census tracts each district in the respective `SpatialPolygonDataFrame` level of political entity (Federal Congressional, State Upper House, State Lower House).  The reason to use `intersect` here, as opposed to `gIntersection` or `gIntersects` is because this function not only retains `data.frame` information, but it also only retains the portion of a tracts that it actually intersects, not the entire tracts itself.
+3. use `raster::intersect` to determine the which census tracts each district in the respective `SpatialPolygonDataFrame` level of political entity (Federal Congressional, State Upper House, State Lower House).  The reason to use `intersect` , as opposed to `gIntersection` or `gIntersects`, is because this function not only retains `data.frame` information, but it also only retains the portion of the tract that it actually intersects, not the entire tract itself.
 
-4. Use `gArea` by id to calculate the area of each tract that each district intersects. Divide each area of the portion of the census tract by the same tract's entire area.  This serves as the ratio to multiple population by to disperse to its respective district.
+4. Use `gArea` by id to calculate the area of each tract that each district intersects. Divide each area of the portion of the census tract by the same tract's entire area.  This serves as the ratio to multiply population by to disperse to its respective district.
 
-5. Multiply each of the demographic populations numbers in each census tract by that census tracts intersected area ratio.
+5. Multiply each of the demographic populations numbers in each census tract by that census tract's intersected area ratio.
 
-6. Sum each census tracts proportioned racial population types in each district, then create a `data.frame` with that district's information attached.
+6. Sum each census tract's proportioned  population types in each district. Then create a `data.frame` with that district's information attached.
 
 7.  This is wrapped in an `sapply` so it can be done iteratively for each district in  that legislative level. The following code chunk is an example of how this is setup for one legislative level:
 
@@ -98,6 +106,7 @@ sld_pop <- merge(x = state_lower, y = sld_pop_table, by = "SLDLST")
 
 This code/process is essentially run three different times since the three different legislative districts have differing data frame attributes from the data retrieval. The outcome is three `SpatialPolygonDataFrames` for the three different legislative levels.
 
+Examples for doing these processes can be found in the "Example_Scripts" folder under the Vignettes folder.  This folder contains the scripts for creating Wisconsin and North Carolina `SpatialPolygonDataFrames`.
 
 # Results (Cory Hertog)
 The results from this code can create three `SpatialPolygonDataFrames` objects:
@@ -107,7 +116,7 @@ The results from this code can create three `SpatialPolygonDataFrames` objects:
 
 
 
-The `@data` portion of the `SpatialPolygonDataFrames` contains rows of the district number and population data for each district number in the columns. Population information is available for the following Ethnic groups, as classified by the US Census Bureau, and available for each district in each of the the three `SpatialPolygonDataFrames`:
+The `@data` portion of the `SpatialPolygonDataFrames` contains rows of the district number and population data for each district number in the columns. Population information is available for the following racial groups, as classified by the US Census Bureau, and available for each district in each of the the three `SpatialPolygonDataFrames`:
 
 - "Pop_Total": the total voting age population of the district
 - "Pop_White": the total voting age population identified as white for the district
@@ -125,7 +134,7 @@ include_graphics("fig/Example_Output_Table.png")
 ```
 
 
-These three spatial data frames can than be used to create choropleth maps of voting age population in the state in each of the three levels of legislative districts.
+These three `SpatialPolygonDataFrames` can than be used to create choropleth maps of voting age population in the state.
 
 In order to display the data and create readable maps, we used the `tamp` and `tmaptools` packages. These follow similar coding rules as laid out in the `tidyverse` and the package `ggplot2`.  These packages allows users to change map projections easily, choose data frame information to display, and create and adjust map details easily .  Example code to create these choropleth maps looks like this:
 
@@ -176,12 +185,15 @@ include_graphics("fig/NC_SFCD_PopH.png")
 
 
 
-# Discussion (Andrea Huerfano)
+# Discussion
 
-## Areas for Improvement
+## Areas for Improvement (Andrea Huerfano)
 - Could use Census black to be more accurate
 - could obtain prison and military base information
 - the use of `sf` package may make process quicker
 - could expand on further demographic information
 - could make the projections automated baed on state chosen for both determining area more accurately and displaying maps automated, which is supposedly a feature of the `sf` package.
+-could obtain different demographic and economic data
 
+## Creating a General-Use Function for Future Use (Cory Hertog)
+We have currently started the process of creating a larger function for this package in order to make creating the `SpatialPolygonsDataFrame` easier and more versatile.  Currently we have created the `dist_pop` function, which essentially automates the process that is outlined in the subsection "Intersections and Population" in the "Methods" section. This `dist_pop` function will most likely be used as an internal function for a larger function that can acquire requested data and transform it into a `SpatialPolygonsDataFrame`. However, creating this larger function will be beyond the time constraints of the project.  The hope is to have a function in which a user can define three key variables: the state they are interested in (FIPS code), the legislative body they are interested in, and the census population data they are interested in, and receive a `SpatialPolygonsDataFrame` as an output. 
