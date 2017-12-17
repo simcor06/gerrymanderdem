@@ -48,6 +48,7 @@ include_graphics("fig/WI_SFCD.png")
 ```{r fig.align='center', out.width= "50%", out.height= "50%"}
 include_graphics("fig/WI_ctracts.png")
 ```
+
 ## Intersections and Population Calculations (Cory Hertog)
 The largest problem with determining population of legislative districts is that census tract boundaries do no match the boundaries of districts. The below figure demonstrates the problem with using census tracts to determine the populations of districts. The blue area is Wisconsin's Lower House District 1, while the red outlines are the census tract boundaries. The problem areas in this case can mainly be seen in the southern portion of the district boundaries.
 
