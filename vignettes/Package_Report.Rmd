@@ -26,8 +26,127 @@ The development of this package was originally thought of by Sam Wang & Brian Re
 Understanding how gerrymandering districts affects the distribution of racial groups within legislative districts is an important step to understanding the problem. Techniques such as "stacking" or "cracking" can diminish the ability for minority populations to gain representation in legislative boundaries.  In Baldus v. Brennan, a federal judge ruled that the way certain assembly districts had been drawn in Milwaukee had effectively ['cracked' Latino voters](https://www.propublica.org/article/partisan-gerrymandering-is-still-about-race). This package hopes to help develop an understanding for how certain races are disperesed throughout legislative districts.
 
 
-
 ## Necessary Packages and Descriptions (Andrea Huerfano)
+
+TIGRIS package: 
+
+Created by Professor Kyle Walker at the Texas Christian University, this package allows the user to download, store, and load all of the TIGER/Line shapefiles for the available geographic areas of the U.S. Census Bureau. 
+
+
+
+                                     Available Geographic Areas 
+```{r fig.align='center', out.width= "60%", out.height= "30%"}
+
+include_graphics("fig/Census_pic.png")
+```
+For this package,the census tracs, congressional districts, and the state legislative districts shapefiles were accessed.
+
+Data access:
+
+In this package, the desired geographic data is requested throught the calling of a function.
+
+                                         Tigris Function Example
+```{r fig.align='center', out.width= "60%", out.height= "30%"}
+include_graphics("fig/Example_functions_Tigris.png")
+```
+
+The result of a function is a SpatialPolygonDataFrame. 
+                                     
+                                    Wisconsin Census Tracts - Top 20
+```{r fig.align='center', out.width= "60%", out.height= "30%"}
+include_graphics("fig/WI_Census_tracts.png")
+```
+A benefit of using the Tigris package is the ability to choose between the use of The TIGER/Line shapefiles and the Cartographic Boundary Files. The TIGER/Line are the most detailed datasets in interior areas, and represent the legal boundaries for coastal areas which extend. 
+three miles beyond the shorelin a The Cartographic Boundary Files have less detail in interior areas. As the area of the census tracts need to be calculated for this project,the Cartographic Boundary Files provides the most accurate option. To choose the Cartographic Boundary Files, the cb parameter on the tracts function is set to TRUE (Wstate_tracts_NAD83<-tracts(state = 'WI', cb= TRUE))
+
+ TIGER/Line shapefiles Cartographic Boundary Files
+```{r out.width= "30%", out.height= "40%"}
+include_graphics("fig/CB_none.png")
+include_graphics("fig/CB_True.png")
+
+```
+## Tidycensus package 
+
+Another package created by Prof. Kyle walker at TCU. In this package the User is able to obtain the tabular data from both decennial US Census and the American Community Survey, through two functions  get_decennial and ger_acs.For this project we used the former. In order to have access to this data, user needs to obtain an API key from the Census  and then use the function census_api_key() to set it in R.
+
+Once api_key is set up, user is able to do queries. The load_variables function of the Tidycensus can help user find the desired variable, by using a filter. The function takes two required arguments: the year of the Census or endyear of the ACS sample, and the dataset - one of "sf1", "sf3", or "acs5" for this project we used "sf1": pop_attempt <- load_variables(2010, dataset = "sf1"), The result of running the load_variables is a data.frame
+```{r fig.align='center', out.width= "60%", out.height= "30%"}
+include_graphics("fig/load_variables.png")
+```
+
+The following variables are used in this project: 
+
+Total population: "P0100001", 
+
+White,over 18 years old = "P016A003"
+
+Black,over 18 years old ="P016B003"
+
+American Indian,over18 = "P036C003"
+
+Asian,over18 = "P016D003"
+
+Pacific Islander,over18 ="P036E003"
+
+Hispanic,over18 ="P016H003"
+
+```{r echo = TRUE, eval=FALSE}
+
+Once the user has identified the variables to be used, according to the needs of the user two functions are used. 
+    -get_decennial: to access decennial datasets (1990,2010,2010)
+    -get_acs: to access American Comumunity Survey datasets (2010 through 2016)
+
+As shown bellow, decennial data is used for this project:
+# Function to obtain tabular data:
+
+census_api_key(key)
+all<-get_decennial(geography = "tract", variables = "P0100001", state= FIPS, year=2010)
+White_over18<-get_decennial(geography = "tract", variables ="P016A003",state = FIPS, year = 2010)
+Black_over18<-get_decennial(geography = "tract", variables ="P016B003",state = FIPS, year = 2010)
+American_Indian_over18<-get_decennial(geography = "tract", variables ="P036C003",state = FIPS, year = 2010)
+Asian_over18<-get_decennial(geography = "tract", variables ="P016D003",state = FIPS, year = 2010)
+Pacific_Islander_over18<-get_decennial(geography = "tract", variables ="P036E003",state = FIPS, year = 2010)
+Hispanic_over18<-get_decennial(geography = "tract", variables ="P016H003",state = FIPS, year = 2010)
+```
+Using the get_decennial function gives a data.frame as an output
+
+```{r fig.align='center', out.width= "60%", out.height= "30%"}
+include_graphics("fig/Result_get_decennial.png")
+```
+
+## Necessary Project Pre-Work (Cory Hertog)
+In order for this project to work on anyone's computer the user needs to do two premptive actions before starting.  The first is to determine the Federal Information Processing Standard Publication (FIPS) code for the US state of interest.  FIPS codes can be obtained form the [census](https://www.census.gov/geo/reference/ansi_statetables.html) wesbite. 
+
+The second step will be to obtain a census key from this website: [https://api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).  This key allows the user to obtain access to the census data provided by the package `tidycensus`, which is a required package for this package.
+
+
+
+# Methods
+
+## Data Acquisition and Preparation (Andrea Huerfano)
+
+In order To continue with the necessary calculations for this project, the data obtained from the Tigris package needs to be prepared. the following procedures will do so:
+
+
+1.Join all the data.frame outputs from the get_decennial functions. cbind is used For this purpose: 
+
+```{r echo = TRUE, eval=FALSE}
+Universe_18<-cbind(all,White_over18$value,Black_over18$value,American_Indian_over18$value,Asian_over18$value,Pacific_Island
+```
+(output)
+
+2. Change column names, in order to identify variables more easily:
+
+```{r echo = TRUE, eval=FALSE}
+names(Universe_18)[4:10]<-c("Entire population","White","Black","American Indian","Asian","Hawaian/Pacific Islander","Hispanic")
+```
+Finally, the results of the spatial data  from the Tigris package need to be merged with the results of tabular data from the Tidycensus package.
+
+```{r echo = TRUE, eval=FALSE}
+state_tracts_pop <- merge(state_tracts,Universe_18, by = "GEOID")
+```
+
+
 
 ## Necessary Project Pre-Work (Cory Hertog)
 In order for this project to work on anyone's computer the user needs to do two premptive actions before starting.  The first is to determine the Federal Information Processing Standard Publication (FIPS) code for the US state of interest.  FIPS codes can be obtained form the [census](https://www.census.gov/geo/reference/ansi_statetables.html) wesbite. 
