@@ -86,9 +86,9 @@ include_graphics("fig/CB_True.png")
 Another package created by Prof. Kyle walker at TCU. This package uses the Census Data Application Programming Interface(API). The Census Data API allows users to query data from the Census Bureau in a more efficient manner, while connecting to R and SAS (Census Data API User Guide).Therefore,in order to access census data, it is necessary to obtain a census key from the Census website: [https://api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).  
 Once user has key,the function 'census_api_key(key, install = TRUE)' is used to set key in R. The key value in this function is the key provided to user by the census.
 
-There are two functions within the tidycensus package, that allow users to obtain the tabular data from both decennial US Census and the American Community Survey. These are the get_decennial and get_acs.For this project we used the former.
+There are two functions within the tidycensus package, that allow users to obtain the tabular data from both decennial US Census and the American Community Survey. These are the get_decennial and get_acs.For this project we use the former.
 
-The load_variables function of the Tidycensus helps a user find the desired variable. The function takes two required arguments: the year of the Census or endyear of the ACS sample, and the dataset:"sf1"(decennial short form), "sf3" (decennial long form), or "acs5" (ACS).For this project "sf1" is used.
+The load_variables function of Tidycensus helps a user find a desired variable. The function takes two required arguments: the year of the Census or endyear of the ACS sample, and the dataset:"sf1"(decennial short form), "sf3" (decennial long form), or "acs5" (ACS).For this project "sf1" is used.
 ```{r echo = TRUE, eval=FALSE}
 pop_attempt <- load_variables(2010, dataset = "sf1")
 ```
@@ -135,33 +135,32 @@ In order for this project to work on anyone's computer the user needs to do two 
 
 The second step will be to obtain a census key from this website: [https://api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).  This key allows the user to obtain access to the census data provided by the package `tidycensus`, which is a required package for this package.
 
-
-
 # Methods
 
 ## Data Acquisition and Preparation (Andrea Huerfano)
 
 In order To continue with the necessary calculations for this project, the data obtained from the Tigris package needs to be prepared. the following procedures will do so:
 
-
 1.Join all the data.frame outputs from the get_decennial functions. cbind is used For this purpose: 
 
 ```{r echo = TRUE, eval=FALSE}
 Universe_18<-cbind(all,White_over18$value,Black_over18$value,American_Indian_over18$value,Asian_over18$value,Pacific_Island
 ```
-(output)
+```{r fig.align='center', out.width= "100%", out.height= "80%"}
+include_graphics("fig/Cbind_Demographics.png")
+```
 
 2. Change column names, in order to identify variables more easily:
 
 ```{r echo = TRUE, eval=FALSE}
 names(Universe_18)[4:10]<-c("Entire population","White","Black","American Indian","Asian","Hawaian/Pacific Islander","Hispanic")
 ```
-Finally, the results of the spatial data  from the Tigris package need to be merged with the results of tabular data from the Tidycensus package.
+
+Finally, the results of the spatial data from the Tigris package need to be merged with the results of tabular data from the Tidycensus package.
 
 ```{r echo = TRUE, eval=FALSE}
 state_tracts_pop <- merge(state_tracts,Universe_18, by = "GEOID")
 ```
-
 
 
 ## Necessary Project Pre-Work (Cory Hertog)
