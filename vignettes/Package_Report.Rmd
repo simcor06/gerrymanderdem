@@ -143,11 +143,6 @@ The get_decennial function outputs a data.frame:
 include_graphics("fig/Result_get_decennial.png")
 ```
 
-### Necessary Project Pre-Work (Cory Hertog)
-In order for this project to work on anyone's computer the user needs to do two premptive actions before starting.  The first is to determine the Federal Information Processing Standard Publication (FIPS) code for the US state of interest.  FIPS codes can be obtained form the [census](https://www.census.gov/geo/reference/ansi_statetables.html) wesbite. 
-
-The second step will be to obtain a census key from this website: [https://api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).  This key allows the user to obtain access to the census data provided by the package `tidycensus`, which is a required package for this package.
-
 # Methods
 
 ## Data Acquisition and Preparation (Andrea Huerfano)
