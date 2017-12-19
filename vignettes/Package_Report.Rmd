@@ -1,5 +1,5 @@
 ---
-title: "gerrymandering Report"
+title: "gerrymanderdem Project Report"
 author: "Cory Hertog & Andrea Huerfano"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -95,7 +95,7 @@ include_graphics("fig/CB_True.png")
 
 Another package created by Prof. Kyle walker. This package uses the Census Data Application Programming Interface(API). The Census Data API allows users to query data from the Census Bureau in a more efficient manner, while connecting to R and SAS (Census Data API User Guide).In order to access the census data, it is necessary to obtain a census key from the Census website: [https://api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).  
 
-Once user has Census key;the function 'census_api_key(key, install = TRUE)' is used to set key in R. The key value in this function is the key provided to user by the census.
+Once user has Census key;the function`census_api_key(key, install = TRUE)` is used to set key in R. The key value in this function is the key provided to user by the census.
 
 There are two functions within the tidycensus package, that allow users to obtain the tabular data from both decennial US Census and the American Community Survey. These are the get_decennial and get_acs.For this project we use the former.
 
@@ -172,13 +172,6 @@ state_tracts_pop <- merge(state_tracts,Universe_18, by = "GEOID")
 ```{r fig.align='center', out.width= "100%", out.height= "80%"}
 include_graphics("fig/Merge_Tabular_spatial.png")
 ```
-
-
-## Necessary Project Pre-Work (Cory Hertog)
-In order for this project to work on anyone's computer the user needs to do two premptive actions before starting.  The first is to determine the Federal Information Processing Standard Publication (FIPS) code for the US state of interest.  FIPS codes can be obtained form the [census](https://www.census.gov/geo/reference/ansi_statetables.html) wesbite. 
-
-The second step 
-
 
 
 # Methods
@@ -327,4 +320,4 @@ When considering the handling of the data and the operations necessary for this 
 
 
 ## Creating a General-Use Function for Future Use (Cory Hertog)
-We have currently started the process of creating a larger function for this package in order to make creating the `SpatialPolygonsDataFrame` easier and more versatile.  Currently we have created the `dist_pop` function, which essentially automates the process that is outlined in the subsection "Intersections and Population" in the "Methods" section. This `dist_pop` function will most likely be used as an internal function for a larger function that can acquire requested data and transform it into a `SpatialPolygonsDataFrame`. However, creating this larger function will be beyond the time constraints of the project.  The hope is to have a function in which a user can define three key variables: the state they are interested in (FIPS code), the legislative body they are interested in, and the census population data they are interested in, and receive a `SpatialPolygonsDataFrame` as an output. 
+We have currently started the process of creating a larger function for this package in order to make creating the `SpatialPolygonsDataFrame` easier and more versatile.  Currently we have created the `dist_pop` function, which essentially automates the process that is outlined in the subsection "Intersections and Population Calculations" in the "Methods" section. This `dist_pop` function will most likely be used as an internal function for a larger function that can acquire requested data and transform it into a `SpatialPolygonsDataFrame`. However, creating this larger function will be beyond the time constraints of the project.  The hope is to have a function in which a user can define three key variables: the state they are interested in (FIPS code), the legislative body they are interested in, and the census population data they are interested in, and receive a `SpatialPolygonsDataFrame` as an output. 
